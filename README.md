@@ -1,71 +1,98 @@
-# 🎬 Video_Auto_Maker — Automated AI Pipeline for Generating Short Videos
+# 🎮 GamePlayVideoMaker — Automated Gameplay-Background Video Generator for Shorts
 
-> **Give me a piece of text, and I’ll give you a fully produced short video.**  
-> *From plain text to TikTok/YouTube-ready videos — fully automated.*
+> **Give me a script, and I’ll give you a short video — gameplay as background, narration as the focus.**  
+> *Built for TikTok / YouTube Shorts style explainer videos.*
 
-Video_Auto_Maker is an **end-to-end AI-powered video generation system** designed for creators, engineers, and content teams.  
-It transforms raw text scripts into fully produced short-form videos, including:
+GamePlayVideoMaker is an **AI-powered automated video generation tool** designed for creating short-form explainer and commentary videos.
 
-- Scene generation (AI text-to-video / animated diagrams)
-- Multi-character TTS narration with emotion control
-- Auto-generated & aligned subtitles
-- Audio/video stitching, mixing, and timing
-- Horizontal & vertical formats for YouTube / TikTok
+It generates videos where:
 
-**Input:** plain text  
-**Output:** a publish-ready short video  
+- 🎮 **Gameplay footage is used purely as a dynamic background**
+- 🎙️ **TTS-generated narration is the core content**
+- 🖼️ **Images / diagrams are overlaid to support explanations**
+- ❗ **The spoken content is NOT related to the gameplay itself**
+
+This format is commonly used for TikTok / Shorts educational, storytelling, and commentary videos.
+
+**Input:** narration script + optional images  
+**Output:** a publish-ready short video (9:16 or 16:9)
 
 **[中文版本](README_CN.md) | [English](README.md)**
 
 ---
 
-## 🎬 Input Script vs. Final Generated Videos (Examples)
+## 🎥 What This Tool Is For
 
-| 🎞️ Type | 📄 Content Description | 🎥 YouTube Preview (Clickable) |
-|:------:|------------------------|:------------------------------:|
-| 🇺🇸 English / Vertical | Explaining “Context Window” in LLMs | <a href="https://youtube.com/shorts/Or9nb3m-yKA"><img src="https://img.youtube.com/vi/Or9nb3m-yKA/0.jpg" width="260"></a> |
-| 🇨🇳 Chinese / Horizontal | MH370 storytelling in Laogao style | <a href="https://youtu.be/MPJBOrTR8v0"><img src="https://img.youtube.com/vi/MPJBOrTR8v0/0.jpg" width="260"></a> |
-| 🇨🇳 Chinese / Vertical | Recreated video in “Hu Chenfeng” opinion style | <a href="https://youtube.com/shorts/dsHxtVA9J6Q"><img src="https://img.youtube.com/vi/dsHxtVA9J6Q/0.jpg" width="260"></a> |
+GamePlayVideoMaker is specifically designed to produce videos like:
+
+- Technical explanations
+- Knowledge-based storytelling
+- Commentary / opinion videos
+- Educational shorts
+- Narrative voice-over content
+
+Where:
+
+> **The gameplay only provides visual motion and retention —  
+> the actual information comes from the voice and images.**
+
+This mirrors a popular Shorts / TikTok production style.
+
+---
+## 🎬 Generated Video Examples
+
+### 🇨🇳 Chinese · Vertical Shorts Style
+<video src="example/video/chinese_example.mp4" width="320" controls></video>
 
 ---
 
-## 🎬 Input Script vs. Final Video (Process Demonstration)
+### 🇺🇸 English · Vertical Shorts Style
+<video src="example/video/english_example.mp4" width="320" controls></video>
 
-**Left: raw text script | Right: fully generated video**
+Narration-based explainer video  
+Gameplay is used purely as visual background.
 
-| 📄 Text Script | 🎥 Generated Video |
-|----------------|-------------------|
-| "dingzhen": Lei, today I found PHP’s Trait…<br>"leijun": Trait is harmless — it’s a safe reuse mechanism in a single-inheritance language…<br>"dingzhen": Feels like magic, like attaching plugins…<br>"leijun": During compilation, Trait code is expanded into the class…<br>[trait_expand.png: Trait expansion diagram]<br>"dingzhen": But not many languages have Traits — outdated?<br>"leijun": No. Traits solve PHP’s reuse pain points, especially for logging, validation, caching…<br>"dingzhen": So it’s for common logic used everywhere?<br>"leijun": Exactly. Traits avoid messy inheritance…<br>[trait_conflict.png: Trait conflict handling]<br> | [![YouTube Video](https://img.youtube.com/vi/f7M_WSHvG8s/0.jpg)](https://youtube.com/shorts/f7M_WSHvG8s) |
-
----
-
-# 🚀 Project Overview
-
-The goal of Video_Auto_Maker is simple:
-
-> **Convert plain text scripts into fully produced, platform-ready short videos — automatically.**
-
-The pipeline handles *all* steps except writing the script itself:
-
-- AI scene generation (text → video)
-- Multi-character and emotional TTS
-- Automatic subtitle generation & alignment
-- Video/audio stitching, mixing, normalization
-- Support for both 16:9 and 9:16 formats
-- JSON-driven pipeline & block-level regeneration
-
-Suitable for:
-
-- Technical explainers
-- Storytelling shorts
-- Narrative vlog-style content
-- Documentary narration
-- AI avatar / virtual host videos
-- Automated content farms & batch production
+> Gameplay footage in all examples is used **only as background** and does not affect the narration content.
 
 ---
 
-# 🖼️ Web UI (Gradio)
+## 🧠 Core Features
+
+- 🎮 Gameplay video as looping or trimmed background
+- 🎙️ High-quality TTS narration (multi-speaker supported)
+- 🖼️ Image / diagram overlay synced to narration
+- 📝 Automatic subtitle generation & alignment
+- 🔊 Audio normalization and mixing
+- 📐 Vertical (9:16) and horizontal (16:9) support
+- 🔁 JSON-driven pipeline with block-level regeneration
+- ⚙️ Fully automated batch generation
+
+---
+
+## 🚀 Project Overview
+
+The goal of GamePlayVideoMaker is simple:
+
+> **Automate the creation of Shorts-style explainer videos using gameplay as visual background.**
+
+The pipeline handles everything except writing the script:
+
+1. TTS narration generation  
+2. Background gameplay video processing  
+3. Image / diagram overlay  
+4. Subtitle generation & timing  
+5. Final video composition & export  
+
+This makes it suitable for:
+
+- TikTok / Shorts content creators
+- Knowledge-based channels
+- Educational automation
+- High-volume short video production
+
+---
+
+## 🖥️ Web UI (Gradio)
 
 ![UI Screenshot](example/picture/ui1.png)
 
@@ -73,20 +100,29 @@ Launch the interface:
 
 ```bash
 python videogen/gradio_app.py
-```
+````
 
 Environment variables:
-Copy .env_example → .env and fill in required API keys.
 
-# 🤖 Models Used
+Copy `.env_example` → `.env` and fill in required API keys.
 
-Text-to-Video: Wan-AI / Wan2.1-T2V-14B Turbo
+---
 
-Text-to-Speech: GPT-SoVITS (supports custom characters & fine-tuning)
+## 🤖 Models & Components
 
-LLM (decision, prompts, storyboarding): DeepSeek-V3
+* **Text-to-Speech:** GPT-SoVITS (supports custom voices & characters)
+* **LLM (script parsing / timing / layout):** DeepSeek-V3
+* **Video Processing:** MoviePy / FFmpeg
+* **UI:** Gradio
 
-❤️ Author
+> Gameplay footage is provided externally and is **not generated by AI**.
 
-NP_123
-Let's turn imagination into moving images.
+---
+
+## 📺 Content Attribution
+
+Most videos published on the following Bilibili account are generated using **GamePlayVideoMaker**:
+
+🔗 **[https://space.bilibili.com/109455236](https://space.bilibili.com/109455236)**
+
+---
