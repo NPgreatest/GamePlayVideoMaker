@@ -39,15 +39,13 @@ Where:
 This mirrors a popular Shorts / TikTok production style.
 
 ---
-## 🎬 Generated Video Examples
+## 🎬 Generated Examples (GitHub Preview)
 
-### 🇨🇳 Chinese · Vertical Shorts Style
-<video src="example/video/chinese_example.mp4" width="320" controls></video>
+| 🌐 Language | 📄 Description | 🎞️ Preview |
+|-----------|---------------|------------|
+| 🇨🇳 Chinese | AI / Engineering explanations<br>Gameplay as background | ![Chinese Demo](example/video/chinese_example.gif) |
+| 🇺🇸 English | Narration-based explainer<br>Gameplay as background | ![English Demo](example/video/english_example.gif) |
 
----
-
-### 🇺🇸 English · Vertical Shorts Style
-<video src="example/video/english_example.mp4" width="320" controls></video>
 
 Narration-based explainer video  
 Gameplay is used purely as visual background.

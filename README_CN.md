@@ -46,6 +46,14 @@ GamePlayVideoMaker 用来自动生成以下类型的视频：
 
 ---
 
+## 🎬 视频实例 (GitHub Preview)
+
+| 🌐 语言        | 📄 内容                                                   | 🎞️ 视频                                             |
+|--------------|---------------------------------------------------------|----------------------------------------------------|
+| 🇨🇳 Chinese | AI / Engineering explanations<br>Gameplay as background | ![Chinese Demo](example/video/chinese_example.gif) |
+| 🇺🇸 English | Narration-based explainer<br>Gameplay as background     | ![English Demo](example/video/english_example.gif) |
+
+
 ## 🧠 核心特性
 
 - 🎮 Gameplay 背景裁剪 / 循环 / 适配比例
