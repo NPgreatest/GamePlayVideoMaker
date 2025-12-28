@@ -1,0 +1,11 @@
+.env
+.venv
+.idea
+_test_out
+db
+project
+log
+assets
+db
+example/video
+venv
