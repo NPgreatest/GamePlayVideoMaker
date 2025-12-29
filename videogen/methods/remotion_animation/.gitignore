@@ -5,3 +5,5 @@ output
 assets
 .DS_Store
 remotion_project/node_modules
+remotion_project/output
+remotion_project/public
