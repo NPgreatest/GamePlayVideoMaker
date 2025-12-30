@@ -54,7 +54,7 @@ class Pipeline:
             # normalize config
             action.config = action.config or {}
             action.config.setdefault("project_name", self.project_name)
-            if self.global_context is not None and action.type in {"fish_audio", "text_video"}:
+            if self.global_context is not None and action.type == "fish_audio":
                 action.config.setdefault("global_context", self.global_context)
             config_json = json.dumps(action.config, sort_keys=True)
 

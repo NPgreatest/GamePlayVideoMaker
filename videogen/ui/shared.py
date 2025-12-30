@@ -83,7 +83,7 @@ def get_bgm_choices() -> List[Tuple[str, str]]:
 
 
 def get_background_video_choices() -> List[Tuple[str, str]]:
-    choices: List[Tuple[str, str]] = [("No Background Video", "")]
+    choices: List[Tuple[str, str]] = []
     if not BACKGROUND_VIDEO_ROOT.exists():
         return choices
     cwd = Path.cwd().resolve()

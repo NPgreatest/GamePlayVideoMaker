@@ -5,11 +5,10 @@ Script parsing with:
 - Picture lines [img.png:title]
 - Slide-only title clip [: title]
 - Flags:
-    -blank
     -imageMode='center'
 """
 
-from typing import Any, Dict, List
+from typing import Dict, List
 import re
 from videogen.schema.action_spec import ActionSpec
 from videogen.schema.project_schema import ScriptBlock
@@ -51,7 +50,6 @@ def parse_script_lines(
         # ============================================
         # 🔥 global flag extraction
         # ============================================
-        blank_flag = bool(re.search(r"-blank\b", line))
         image_mode_match = re.search(r"-imageMode='([^']+)'", line)
         custom_image_mode = image_mode_match.group(1) if image_mode_match else None
         appear_flag = bool(re.search(r"--appear", line))
@@ -158,34 +156,18 @@ def parse_script_lines(
             }
         ))
 
-        # --- Step2: background video OR text_video ---
-        if background_video:
-            sb.actions.append(ActionSpec(
-                type="extract_background_segment",
-                config={
-                    "background_video": background_video,
-                    "target_name": sb.id,
-                    "workdir": ".",
-                }
-            ))
-        else:
-            if not blank_flag:   # 👈 NEW
-                sb.actions.append(ActionSpec(
-                    type="text_video",
-                    config={
-                        "text": text,
-                        "target_name": sb.id,
-                        "workdir": ".",
-                    }
-                ))
-                sb.actions.append(ActionSpec(
-                    type="remotion_picture",
-                    config={
-                    "template": "ElasticClip",
-                    "workdir": ".",
-                    "target_name": sb.id,
-                    }
-                ))
+        # --- Step2: background video ---
+        if not background_video:
+            raise ValueError("background_video is required for script parsing.")
+
+        sb.actions.append(ActionSpec(
+            type="extract_background_segment",
+            config={
+                "background_video": background_video,
+                "target_name": sb.id,
+                "workdir": ".",
+            }
+        ))
 
         # ============================================
         # Step 3: Character overlay (remotion_picture)
