@@ -41,10 +41,12 @@ This mirrors a popular Shorts / TikTok production style.
 ---
 ## 🎬 Generated Examples (GitHub Preview)
 
-| 🌐 Language | 📄 Description | 🎞️ Preview |
-|-----------|---------------|------------|
-| 🇨🇳 Chinese | AI / Engineering explanations<br>Gameplay as background | ![Chinese Demo](example/video/chinese_example.gif) |
-| 🇺🇸 English | Narration-based explainer<br>Gameplay as background | ![English Demo](example/video/english_example.gif) |
+| 🇨🇳 Chinese | 🇺🇸 English |
+|------------|------------|
+| ![Chinese Demo](example/video/chinese_example.gif) | ![English Demo](example/video/english_example.gif) |
+
+**Chinese**: AI / Engineering explanations · Gameplay as background  
+**English**: Narration-based explainer · Gameplay as background
 
 
 Narration-based explainer video  
