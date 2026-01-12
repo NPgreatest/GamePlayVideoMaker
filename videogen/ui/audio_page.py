@@ -124,7 +124,7 @@ def _collect_audio_data(project_name: str):
 # ----------------------------------------
 # Pagination helper
 # ----------------------------------------
-ITEMS_PER_PAGE = 2
+ITEMS_PER_PAGE = 20
 
 
 def _paginate_audio(audio_items: List[Dict], page: int):
@@ -244,10 +244,13 @@ def build_audio_page() -> None:
 
         # ------------- Audio players (10 slots) -------------
         audio_players = [
-            gr.Audio(label=f"Audio {i+1}", type="filepath", visible=False)
+            gr.Audio(
+                label=f"Audio {i + 1}",
+                type="filepath",
+                visible=True,
+            )
             for i in range(audio_slots)
         ]
-
 
         with gr.Row():
             gen_btn = gr.Button("Generate Audio", variant="primary")

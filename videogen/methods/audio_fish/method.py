@@ -61,7 +61,7 @@ def _tts_fish_request_internal(text: str, out_path: Path, model_id: str) -> byte
     request = TTSRequest(
         text=text,
         reference_id=model_id,
-        prosody=Prosody(volume=0 if model_id=="0bcdfe563eca444f935c0cf780f287d3" else -3.0, speed=1.2)
+        prosody=Prosody(volume=2 if model_id=="0bcdfe563eca444f935c0cf780f287d3" else -1.0, speed=1.2)
     )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     audio_buffer = bytearray()
