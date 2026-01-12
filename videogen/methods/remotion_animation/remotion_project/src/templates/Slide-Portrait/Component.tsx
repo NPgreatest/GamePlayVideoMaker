@@ -1,15 +1,15 @@
 import React from 'react';
 import {
-  AbsoluteFill,
-  Html5Audio,
-  Img,
-  Sequence,
-  Video,
-  interpolate,
-  spring,
-  staticFile,
-  useCurrentFrame,
-  useVideoConfig,
+    AbsoluteFill,
+    Html5Audio,
+    Img,
+    Sequence,
+    Video,
+    interpolate,
+    spring,
+    staticFile,
+    useCurrentFrame,
+    useVideoConfig, OffthreadVideo,
 } from 'remotion';
 import {fontFamily} from '../../load-fonts';
 
@@ -195,19 +195,29 @@ const getImageWrapperStyle = () => {
         padding: '40px',
       }}
     >
-      {videoPath ? (
-        <AbsoluteFill>
-          <Video
-            src={staticFile(`assets/${videoPath}`)}
-            style={{width: '100%', height: '100%', objectFit: 'cover'}}
-          />
-        </AbsoluteFill>
-      ) : (
-        <>
-          <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(135deg,#000,#1a1a1a)'}} />
-          <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(circle at 20% 80%, rgba(255,255,255,0.05), transparent 50%)'}} />
-        </>
-      )}
+
+        {videoPath ? (
+          <AbsoluteFill>
+              <OffthreadVideo
+                    src={staticFile(`assets/${videoPath}`)}
+                    muted
+                    transparent
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                      backgroundColor: 'transparent',
+                    }}
+                  />
+
+          </AbsoluteFill>
+        ) : (
+          <>
+            <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(135deg,#000,#1a1a1a)'}} />
+            <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(circle at 20% 80%, rgba(255,255,255,0.05), transparent 50%)'}} />
+          </>
+        )}
+
 
       {/* 🔥 图片 */}
       {imagePath && (

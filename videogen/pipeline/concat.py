@@ -317,13 +317,48 @@ def generate_srt_from_blocks(dao: WorkingBlockDAO, project_name: str, block_ids:
 
 
 # ========== 阶段 5：拼接 ==========
-def concat_videos(files: List[Path], out: Path)->bool:
-    tmp = out.parent / "concat_list.txt"
-    tmp.write_text("\n".join(f"file '{f.resolve()}'" for f in files),encoding="utf-8")
-    ok = run(["ffmpeg","-y","-f","concat","-safe","0","-i",str(tmp),
-              "-c","copy","-movflags","+faststart",str(out)])
-    if ok: print(f"[concat] ✅ {out}")
-    return ok
+def concat_videos(files: List[Path], out: Path) -> bool:
+    # ASCII-only temp dir
+    tmp_dir = Path("C:/temp/ffmpeg_concat")
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+
+    # Copy clips
+    safe_files = []
+    for i, f in enumerate(files):
+        safe = tmp_dir / f"{i:03d}.mp4"
+        shutil.copy2(f, safe)
+        safe_files.append(safe)
+
+    # Write concat list
+    concat_txt = tmp_dir / "concat_list.txt"
+    concat_txt.write_text(
+        "\n".join(f"file '{p.name}'" for p in safe_files),
+        encoding="utf-8"
+    )
+
+    # Run ffmpeg INSIDE ascii dir
+    ok = run([
+        "ffmpeg", "-y",
+        "-f", "concat", "-safe", "0",
+        "-i", str(concat_txt),
+        "-c:v", "libx264",
+        "-preset", PRESET,
+        "-crf", CRF,
+        "-pix_fmt", PIX_FMT,
+        "-c:a", "aac",
+        "-ar", AUDIO_RATE,
+        "-b:a", AUDIO_BR,
+        "-movflags", "+faststart",
+        str(tmp_dir / "out.mp4")
+    ])
+
+    if not ok:
+        return False
+
+    shutil.copy2(tmp_dir / "out.mp4", out)
+    print(f"[concat] ✅ {out}")
+    return True
+
 
 # ========== 阶段 10：生成封面照片 ==========
 # 封面生成功能已移至 videogen.pipeline.gen_cover 模块
