@@ -22,7 +22,6 @@ def _save_project_assets(
     project_name: str,
     size: str,
     default_character: str,
-    global_context: str,
     show_character_overlay: bool,
     bgm_path: str,
     background_video_path: str,
@@ -39,12 +38,12 @@ def _save_project_assets(
         "size": size,
         "script": script_dicts,
         "project_status": ProjectStatus.CREATED.value,
-        "global_context": global_context or None,
         "show_character_overlay": bool(show_character_overlay),
         "bgm_path": bgm_path or None,
         "background_video": background_video_path,
         "burn_subtitle": burn_subtitle,
     }
+
     project_json_path = project_dir / f"{project_name}.json"
     write_json(project_json_path, project_payload)
     return str(project_json_path)
@@ -61,7 +60,6 @@ def create_project(
     project_name: str,
     size: str,
     default_character: str,
-    global_context: str,
     show_character_overlay: bool,
     script_text: str,
     bgm_path: str,
@@ -71,6 +69,7 @@ def create_project(
     project_name = (project_name or "").strip()
     if not project_name:
         return "❌ Project name cannot be empty"
+
     if not script_text or not script_text.strip():
         return "❌ Script text cannot be empty"
 
@@ -100,79 +99,87 @@ def create_project(
         return "❌ No valid script lines parsed."
 
     _reset_project_blocks(project_name)
+
     project_json_path = _save_project_assets(
-        project_name,
-        size,
-        default_character,
-        global_context,
-        show_character_overlay,
-        bgm_path,
-        background_video_path,
-        burn_subtitle,
-        blocks,
+        project_name=project_name,
+        size=size,
+        default_character=default_character,
+        show_character_overlay=show_character_overlay,
+        bgm_path=bgm_path,
+        background_video_path=background_video_path,
+        burn_subtitle=burn_subtitle,
+        blocks=blocks,
     )
 
-    message = (
+    return (
         f"✅ 项目 `{project_name}` 已创建。\n\n"
         f"- project JSON: `{project_json_path}`"
     )
-    return message
 
 
 def build_create_project_page() -> None:
     character_choices = get_character_choices()
     default_character_value = character_choices[0][1] if character_choices else ""
+
     bgm_choices = get_bgm_choices()
     background_video_choices = get_background_video_choices()
-    background_default = background_video_choices[0][1] if background_video_choices else None
+    background_default = (
+        background_video_choices[0][1] if background_video_choices else None
+    )
 
     with gr.Column():
         gr.Markdown("### 🆕 Create Project\n为项目输入名称和脚本，背景视频为必选项。")
+
         project_name = gr.Textbox(
             label="Project Name",
             placeholder="e.g., tech_demo",
             max_lines=1,
-            value="",
             interactive=True,
         )
-        global_context = gr.Textbox(
-            label="Global Context",
-            placeholder="例如：整体风格、背景设定、目标受众等全局信息",
-            lines=2,
-        )
+
         with gr.Row():
             size = gr.Radio(
                 label="Video Format",
                 choices=["landscape", "tiktok"],
                 value="tiktok",
             )
+
             default_character = gr.Dropdown(
                 label="Default Character",
                 choices=character_choices or [("Not Set", "")],
                 value=default_character_value,
                 allow_custom_value=True,
             )
+
         bgm_dropdown = gr.Dropdown(
             label="Background Music (BGM)",
             choices=bgm_choices,
             value=bgm_choices[0][1] if bgm_choices else "",
         )
+
         background_video_dropdown = gr.Dropdown(
             label="Background Video",
             choices=background_video_choices,
             value=background_default,
             interactive=bool(background_video_choices),
         )
-        burn_subtitle = gr.Checkbox(label="Burn Subtitles to Final Video", value=True)
+
+        burn_subtitle = gr.Checkbox(
+            label="Burn Subtitles to Final Video",
+            value=True,
+        )
+
         show_character_overlay = gr.Checkbox(
             label="显示角色人像（Character Overlay）",
             value=True,
         )
+
         script_text = gr.Textbox(
             label="Script Text",
             placeholder='"character": your line\nnext line...',
             lines=12,
         )
+
         status = gr.Markdown("")
         create_btn = gr.Button("Create Project", variant="primary")
 
@@ -182,7 +189,6 @@ def build_create_project_page() -> None:
             project_name,
             size,
             default_character,
-            global_context,
             show_character_overlay,
             script_text,
             bgm_dropdown,
